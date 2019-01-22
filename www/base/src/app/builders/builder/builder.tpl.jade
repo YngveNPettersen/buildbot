@@ -18,7 +18,7 @@
                   span.badge-status {{br.buildrequestid}}
               td
                 span(title="{{br.submitted_at | dateformat:'LLL'}}")
-                  | {{br.submitted_at | timeago }}
+                  | {{br.submitted_at | dateformat:'MMM DD HH:mm' }}
               td
                 span {{br.properties.owner[0]}}
               td

@@ -6,8 +6,10 @@
       tr
         td(width='200px', ng-show="builders") Builder
         td(width='100px') #
-        td(width='150px') Started At
+        td(width='150px') Completed At
         td(width='150px') Duration
+        td(width='150px') Branch
+        td(width='150px') Revision
         td(width='200px') Owner
         td(width='150px') Worker
         td Status
@@ -17,14 +19,23 @@
             a(ui-sref="build({builder:build.builderid, build:build.number})")
               span.badge-status(ng-class="results2class(build, 'pulse')")
                   span.badge-inactive 
-                    | {{build.number}}
-                  span.badge-active {{results2text(build)}}
+                    | {{build.properties.build_version_reference[0]}}
+                  span.badge-active(ng-if="!build.complete") {{build.properties.build_version_reference[0]}}
+                  span.badge-active(ng-if="build.complete") {{results2text(build)}}
           td
-            span(title="{{build.started_at | dateformat:'LLL'}}")
-              | {{build.started_at | timeago }}
+            span(ng-if="build.complete_at" title="{{build.complete_at | dateformat:'LLL'}}")
+              | {{build.complete_at | dateformat:'MMM DD HH:mm' }}
+            span(ng-if="!build.complete_at" title="{{build.started_at | dateformat:'LLL'}}")
+              | {{build.started_at | dateformat:'MMM DD HH:mm' }}
           td
             span(ng-show="build.complete", title="{{(build.complete_at - build.started_at)| durationformat:'LLL' }}")
               | {{(build.complete_at - build.started_at)| duration }}
+          td
+            span
+              | {{build.properties.branch[0]}}
+          td
+            span
+              | {{build.properties.revision[0]}}
           td
             span(title="{{build.properties.owner[0]}}")
               | {{ build.properties.owner[0] }}

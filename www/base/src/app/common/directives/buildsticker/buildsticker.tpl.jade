@@ -1,12 +1,18 @@
 .panel.panel-default.buildsticker(ng-class="results2class(build)")
-  .panel-body.no-select
+  .panel-body
     .row
       span.pull-right.label(ng-class="results2class(build)") {{results2text(build)}}
       a(ui-sref="build({builder:builder.builderid, build:build.number})")
-        | {{builder.name}}/{{build.number}}
+        span(ng-show="build.complete")
+          | {{build.properties.build_version_reference[0]}}
+        span(ng-show="!build.complete")
+          | {{builder.name}}/{{build.number}}
+    .row
+      span(ng-show="build.properties.revision")
+        | {{build.properties.branch[0]}} | {{build.properties.revision[0]}}
     .row
       span.pull-right(ng-show="build.complete")
-          | {{(build.complete_at - build.started_at)| durationformat:'LLL' }}
+          | {{build.complete_at|dateformat:'MMM DD HH:mm'}} ({{(build.complete_at - build.started_at)| durationformat:'LLL' }})
       span.pull-right(ng-show="!build.complete")
-          | {{(now - build.started_at)| durationformat:'LLL' }}
+          | {{build.started_at|dateformat:'MMM DD HH:mm'}} ({{(now - build.started_at)| durationformat:'LLL' }})
       span {{build.state_string}}

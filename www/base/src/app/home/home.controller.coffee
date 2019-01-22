@@ -5,7 +5,11 @@ class Home extends Controller
 
         data = dataService.open().closeOnDestroy($scope)
         $scope.buildsRunning = data.getBuilds(order: '-started_at', complete: false)
-        $scope.recentBuilds = data.getBuilds(order: '-buildid', complete: true, limit:20)
+        $scope.recentBuilds = data.getBuilds
+            property: ["build_version_reference", "branch", "revision"]
+            order: '-buildid'
+            complete: true
+            limit:100
         $scope.builders = data.getBuilders()
         $scope.hasBuilds = (b) -> b.builds?.length > 0
 

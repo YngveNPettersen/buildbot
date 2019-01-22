@@ -118,7 +118,11 @@ class Builders extends Controller
             builderIds = filteredBuilds.map (builder) -> builder.builderid
             builderIds = [] if builderIds.length == $scope.builders.length
 
-            builds = data.getBuilds(limit: buildFetchLimit, order: '-started_at', builderid__eq: builderIds)
+            builds = data.getBuilds
+                  property: ["build_version_reference", "branch", "revision"]
+                  limit: buildFetchLimit
+                  order: '-started_at'
+                  builderid__eq: builderIds
             dataGrouperService.groupBy($scope.builders, workers, 'builderid', 'workers', 'configured_on')
             dataGrouperService.groupBy($scope.builders, builds, 'builderid', 'builds')
 

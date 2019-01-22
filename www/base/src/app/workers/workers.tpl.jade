@@ -30,7 +30,7 @@
                     span(ng-repeat="build in worker.builds | orderBy : '-buildid' |limitTo: '7' ")
                         a(ui-sref='build({builder: build.builderid, build: build.number})')
                             span.badge-status(ng-class="results2class(build, 'pulse')")
-                              | {{ builders.get(build.builderid).name }}/{{ build.number }}
+                              | {{ builders.get(build.builderid).name }}/{{ build.properties.build_version_reference[0] }}
                 td(ng-if="settings.showWorkerBuilders.value")
                     ul.list-inline
                         li(ng-repeat='builder in getUniqueBuilders(worker) | orderBy: ["name"]')

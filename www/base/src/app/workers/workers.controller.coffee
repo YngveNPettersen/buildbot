@@ -71,10 +71,16 @@ class Workers extends Controller
         if $stateParams.numbuilds?
             $scope.numbuilds = +$stateParams.numbuilds
         if $stateParams.worker?
-            $scope.builds = builds = data.getBuilds(
-                limit: $scope.numbuilds, workerid: +$stateParams.worker, order: '-started_at')
+            $scope.builds = builds = data.getBuilds
+                property: ["build_version_reference", "branch", "revision"]
+                limit: $scope.numbuilds
+                workerid: +$stateParams.worker
+                order: '-started_at'
         else
-            builds = data.getBuilds(limit: $scope.numbuilds, order: '-started_at')
+            builds = data.getBuilds
+                property: ["build_version_reference", "branch", "revision"]
+                limit: $scope.numbuilds
+                order: '-started_at'
         dataGrouperService.groupBy($scope.workers, builds, 'workerid', 'builds')
         $scope.settings = bbSettingsService.getSettingsGroup("Workers")
         $scope.$watch('settings', ->
