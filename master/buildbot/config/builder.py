@@ -34,7 +34,8 @@ class BuilderConfig(util_config.ConfiguredMixin):
                  nextWorker=None, nextBuild=None, locks=None, env=None,
                  properties=None, collapseRequests=None, description=None,
                  description_format=None,
-                 canStartBuild=None, defaultProperties=None, project=None
+                 canStartBuild=None, defaultProperties=None, project=None,
+                 sort_key=None
                  ):
         # name is required, and can't start with '_'
         if not name or type(name) not in (bytes, str):
@@ -46,6 +47,14 @@ class BuilderConfig(util_config.ConfiguredMixin):
             self.name = bytes2unicode(name, encoding="ascii")
         except UnicodeDecodeError:
             error("builder names must be unicode or ASCII")
+
+        if sort_key and type(sort_key) not in (bytes, str):
+            error("sort_key must be a string type")
+            sort_key = None
+        try:
+            self.sort_key = bytes2unicode(sort_key or "", encoding="ascii")
+        except UnicodeDecodeError:
+            error("sort keys must be unicode or ASCII")
 
         if not isinstance(project, (type(None), str)):
             error("builder project must be None or str")
@@ -181,4 +190,7 @@ class BuilderConfig(util_config.ConfiguredMixin):
             rv['description'] = self.description
             if self.description_format:
                 rv['description_format'] = self.description_format
+        if self.sort_key:
+          rv['sort_key'] = self.sort_key
+
         return rv

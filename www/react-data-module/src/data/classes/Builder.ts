@@ -23,6 +23,7 @@ export class Builder extends BaseClass {
   @observable description_html!: string|null;
   @observable masterids!: string[];
   @observable name!: string;
+  @observable sort_key!: string | null;
   @observable tags!: string[];
   @observable projectid!: string|null;
 
@@ -39,6 +40,7 @@ export class Builder extends BaseClass {
     this.description_html = object.description_html;
     this.masterids = object.masterids;
     this.name = object.name;
+    this.sort_key = object.sort_key;
     this.tags = object.tags;
     this.projectid = object.projectid;
   }
@@ -49,6 +51,7 @@ export class Builder extends BaseClass {
       description: this.description,
       masterids: this.masterids,
       name: this.name,
+      sort_key: this.sort_key,
       tags: this.tags,
       projectid: this.projectid,
     };

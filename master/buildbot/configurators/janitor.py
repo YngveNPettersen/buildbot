@@ -105,7 +105,7 @@ class JanitorConfigurator(ConfiguratorBase):
             name=JANITOR_NAME + "_force",
             builderNames=[JANITOR_NAME]))
 
-        self.builders.append(BuilderConfig(
+        self.builders.append(BuilderConfig(sort_key=kwargs.get("sort_key", None),
             name=JANITOR_NAME, workername=JANITOR_NAME, factory=BuildFactory(steps=steps)
         ))
         self.protocols.setdefault('null', {})

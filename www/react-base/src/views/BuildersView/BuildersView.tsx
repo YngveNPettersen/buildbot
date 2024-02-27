@@ -66,7 +66,7 @@ export const BuildersView = observer(() => {
   const filteredBuilders = builders.array.filter(builder => {
     return isBuilderFiltered(builder, filterManager, masters, showOldBuilders) &&
         (builderNameFilter === null || builder.name.indexOf(builderNameFilter) >= 0)
-  }).sort((a, b) => a.name.localeCompare(b.name));
+  }).sort((a, b) => (a.sort_key || "").localeCompare(b.sort_key || "") ||  a.name.localeCompare(b.name));
 
   return (
     <div className="bb-builders-view-container">

@@ -266,6 +266,12 @@ Builder Configuration
 
         The builder's description, displayed in the web status.
 
+    .. py:attribute:: sort_key
+
+        An extra key that allows the builders to be organized by category rather than alphabetically,
+        e.g by using sort keys like "10_foo", "20_bar", "30_baz" to group the foo, bar, and baz type
+        builders in the builders list. 
+
 Error Handling
 --------------
 

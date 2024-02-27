@@ -44,6 +44,8 @@ class BuilderEndpoint(base.BuildNestingMixin, base.Endpoint):
         return {
             "builderid": builderid,
             "name": bdict['name'],
+             # TODO: fix
+     #       "sort_key": bdict.get('sort_key', '')
             "masterids": bdict['masterids'],
             "description": bdict['description'],
             "description_format": bdict["description_format"],
@@ -73,6 +75,8 @@ class BuildersEndpoint(base.Endpoint):
             {
                 "builderid": bd['id'],
                 "name": bd['name'],
+                # TODO: fix
+                #"sort_key": bd.get('sort_key', ''),
                 "masterids": bd['masterids'],
                 "description": bd['description'],
                 "description_format": bd['description_format'],
@@ -103,6 +107,8 @@ class Builder(base.ResourceType):
     class EntityType(types.Entity):
         builderid = types.Integer()
         name = types.Identifier(70)
+  # TODO: fix
+  #      sort_key = types.Identifier(70)
         masterids = types.List(of=types.Integer())
         description = types.NoneOk(types.String())
         description_format = types.NoneOk(types.String())
@@ -148,7 +154,9 @@ class Builder(base.ResourceType):
                 self.master.mq.produce(('builders', str(builderid), 'stopped'), {
                     "builderid": builderid,
                     "masterid": masterid,
-                    "name": bldr['name']
+                    "name": bldr['name'],
+                    # TODO: fix
+                    #"sort_key": bldr.get('sort_key', '')
                 })
             else:
                 builderNames_set.remove(bldr['name'])
