@@ -142,6 +142,7 @@ class Connection(base.Connection, pb.Avatar):
             # however, these hacks are pretty internal, so don't blow up if
             # they fail or are unavailable
             log.msg("failed to accelerate the shutdown process")
+        self.notifyDisconnected()
 
     # keepalive handling
 
