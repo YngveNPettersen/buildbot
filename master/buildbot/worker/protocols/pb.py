@@ -21,8 +21,8 @@ from twisted.spread import pb
 
 from buildbot.pbutil import decode
 from buildbot.util import deferwaiter
-from buildbot.worker.protocols import base
 from buildbot.worker import AbstractWorker
+from buildbot.worker.protocols import base
 
 
 class Listener(base.UpdateRegistrationListener):
