@@ -147,8 +147,9 @@ class Connection(base.Connection, pb.Avatar):
     # keepalive handling
 
     def _do_keepalive(self):
-        if not self.worker or (isinstance(self.worker, AbstractWorker) and
-                               self.worker.isConnected() != self):
+        if not self.worker or (
+            isinstance(self.worker, AbstractWorker) and self.worker.isConnected() != self
+        ):
             self.loseConnection()
             self.notifyDisconnected()
             return defer.fail(None)
